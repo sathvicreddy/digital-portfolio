@@ -1,0 +1,220 @@
+/* ===========================
+   About Me — Template Design
+   =========================== */
+.about-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 80px 0;
+}
+
+/* ---- Layout ---- */
+.about-content {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 4rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+}
+
+/* ===========================
+   Left — Portrait (No Background)
+   =========================== */
+.about-image-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  /* No background, no border, no card — just the photo */
+}
+
+.about-image-inner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-portrait {
+  width: 320px;
+  height: 400px;
+  object-fit: cover;
+  object-position: top center;
+  mix-blend-mode: screen;
+  filter: contrast(1.1) brightness(0.95);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+              filter 0.6s ease;
+}
+
+.about-image-card:hover .about-portrait {
+  transform: scale(1.04);
+  filter: contrast(1.15) brightness(1);
+}
+
+/* ===========================
+   Right — Info Section
+   =========================== */
+.about-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.about-label {
+  font-size: 0.8rem;
+  font-family: var(--font-mono);
+  color: var(--accent-cyan);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.about-heading {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.8rem;
+}
+
+.accent-text {
+  background: linear-gradient(135deg, var(--accent-cyan), #7c4dff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-description {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 0.8rem;
+}
+
+.about-description-secondary {
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.35);
+  margin-bottom: 2rem;
+}
+
+/* ===========================
+   Info Grid — 2x2
+   =========================== */
+.about-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+.info-card {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 14px;
+  padding: 1rem 1.2rem;
+  transition: all 0.35s ease;
+  cursor: default;
+}
+
+.info-card:hover {
+  background: rgba(0, 229, 255, 0.04);
+  border-color: rgba(0, 229, 255, 0.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.info-card-icon {
+  color: var(--accent-cyan);
+  opacity: 0.7;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+
+.info-card:hover .info-card-icon {
+  opacity: 1;
+}
+
+.info-card div {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-card-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: var(--font-mono);
+  margin-bottom: 0.15rem;
+}
+
+.info-card-value {
+  font-size: 0.95rem;
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* ===========================
+   Responsive
+   =========================== */
+@media (max-width: 960px) {
+  .about-section {
+    min-height: auto;
+    padding: 60px 0;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+    padding: 0 1.5rem;
+  }
+
+  .about-portrait {
+    width: 260px;
+    height: 330px;
+  }
+
+  .about-info {
+    align-items: center;
+  }
+
+  .about-heading {
+    font-size: 2rem;
+  }
+
+  .about-description,
+  .about-description-secondary {
+    text-align: center;
+    max-width: 480px;
+  }
+
+  .about-info-grid {
+    max-width: 400px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-heading {
+    font-size: 1.6rem;
+  }
+
+  .about-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-portrait {
+    width: 220px;
+    height: 280px;
+  }
+}

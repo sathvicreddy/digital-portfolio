@@ -1,0 +1,105 @@
+.skills-section {
+  padding-top: 150px;
+  padding-bottom: 100px;
+  position: relative;
+  overflow: hidden; /* Important for marquee */
+}
+
+.section-header {
+  margin-bottom: 4rem;
+  z-index: 10;
+  position: relative;
+}
+
+.section-title {
+  font-size: 3.5rem;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  margin-top: 0.5rem;
+}
+
+.marquee-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.marquee-row {
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+}
+
+.marquee-content {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 4rem;
+  padding-right: 4rem;
+  animation: scroll-left 40s linear infinite;
+}
+
+.marquee-row.reverse .marquee-content {
+  animation: scroll-right 40s linear infinite;
+}
+
+.skill-item {
+  font-size: 5rem;
+  font-weight: 800;
+  color: var(--border-color); /* Dimmer by default */
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.skill-item:hover {
+  color: var(--text-main);
+  animation-play-state: paused;
+}
+
+.marquee-row:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* Gradients to fade out the edges */
+.fade-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 200px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.fade-overlay.left {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-color), transparent);
+}
+
+.fade-overlay.right {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-color), transparent);
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 2.5rem;
+  }
+  .skill-item {
+    font-size: 3rem;
+  }
+}
