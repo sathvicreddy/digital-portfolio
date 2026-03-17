@@ -240,3 +240,40 @@
     gap: 3rem;
   }
 }
+
+/* ===========================
+   Light Mode — Contact Form
+   =========================== */
+.light-mode .contact-form-card {
+  background: transparent;
+  border: 1px solid #00e5ff;
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.08);
+}
+
+.light-mode .form-card-heading {
+  color: var(--text-main);
+}
+
+.light-mode .form-field label {
+  color: #333;
+}
+
+.light-mode .form-field input,
+.light-mode .form-field textarea {
+  background: #f8f9fa;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  color: #111;
+}
+
+.light-mode .form-field input::placeholder,
+.light-mode .form-field textarea::placeholder {
+  color: #999;
+}
+
+.light-mode .form-field input:focus,
+.light-mode .form-field textarea:focus {
+  background: #fff;
+  border-color: #00e5ff;
+  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12);
+}
+

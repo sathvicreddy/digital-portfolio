@@ -44,7 +44,8 @@
 .ach-card-new {
   flex: 1 1 300px;
   max-width: 350px;
-  background: #1e1e1e;
+  background: transparent;
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
@@ -246,7 +247,8 @@
 
 /* Timeline Card */
 .timeline-card {
-  background: rgba(20, 25, 35, 0.6);
+  background: transparent;
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   padding: 1.8rem 2rem;
@@ -1699,4 +1701,218 @@
   .pro-modal-content {
     max-height: 95vh;
   }
+}
+
+/* ===========================
+   Light Mode Enhancements
+   =========================== */
+.light-mode .ach-card-new,
+.light-mode .timeline-card,
+.light-mode .pro-card {
+  background: transparent;
+  border: 1px solid var(--accent-cyan);
+  box-shadow: 0 4px 10px rgba(0, 184, 212, 0.1);
+}
+
+.light-mode .ach-card-new:hover,
+.light-mode .timeline-card:hover,
+.light-mode .pro-card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 8px 25px rgba(0, 184, 212, 0.2);
+}
+
+.light-mode .ach-card-title,
+.light-mode .timeline-title,
+.light-mode .pro-author-row h4,
+.light-mode .pro-card-author,
+.light-mode .pro-content p,
+.light-mode .pro-meta h4,
+.light-mode .reaction-text,
+.light-mode .pro-comments,
+.light-mode .pro-btn {
+  color: var(--text-main);
+}
+
+.light-mode .ach-card-desc,
+.light-mode .timeline-desc,
+.light-mode .pro-card-date {
+  color: var(--text-muted);
+}
+
+.light-mode .ach-card-new::after {
+  background: linear-gradient(90deg, rgba(0, 184, 212, 0.8) 0%, rgba(0, 184, 212, 0) 80%);
+}
+
+.light-mode .ach-card-icon,
+.light-mode .timeline-date-row,
+.light-mode .timeline-org {
+  color: var(--text-muted);
+}
+
+/* Light Mode — Education Cards */
+.light-mode .edu-card {
+  background: transparent;
+  border: 1px solid #00e5ff;
+}
+
+.light-mode .edu-card:hover {
+  background: transparent;
+  border-color: #00e5ff;
+  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.15);
+}
+
+.light-mode .edu-card-active {
+  background: transparent;
+  border-color: #00e5ff;
+}
+
+/* Light Mode — Certificate Cards */
+.light-mode .card-item {
+  background: transparent;
+  border: 1px solid #00e5ff;
+}
+
+.light-mode .card-item:hover {
+  background: transparent;
+  border-color: #00e5ff;
+  box-shadow: 0 8px 25px rgba(0, 229, 255, 0.15);
+}
+
+/* Light Mode — Scroll Arrows */
+.light-mode .scroll-arrow {
+  background: transparent;
+  border: 1px solid #00e5ff;
+  color: #00e5ff;
+}
+
+.light-mode .scroll-arrow:hover {
+  background: #00e5ff;
+  color: #fff;
+  border-color: #00e5ff;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+}
+
+/* ===========================
+   Light Mode — Social Post Modal
+   =========================== */
+.light-mode .post-modal-overlay {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.light-mode .post-modal-linkedin {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #111;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+}
+
+.light-mode .linkedin-modal-close {
+  background: rgba(0, 0, 0, 0.06);
+  color: #555;
+}
+
+.light-mode .linkedin-modal-close:hover {
+  background: rgba(0, 0, 0, 0.12);
+  color: #111;
+}
+
+.light-mode .linkedin-modal-left {
+  background: #f5f5f5;
+}
+
+.light-mode .linkedin-modal-left.no-image {
+  background: #f0f2f5;
+}
+
+.light-mode .linkedin-text-fallback {
+  color: #333;
+}
+
+.light-mode .linkedin-modal-right {
+  background: #ffffff;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .linkedin-modal-author {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .linkedin-author-name {
+  color: #111;
+}
+
+.light-mode .linkedin-author-headline {
+  color: #666;
+}
+
+.light-mode .linkedin-post-time {
+  color: #888;
+}
+
+.light-mode .linkedin-modal-content {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .linkedin-modal-content p {
+  color: #222;
+}
+
+.light-mode .linkedin-modal-stats {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .linkedin-comment-count {
+  color: #666;
+}
+
+.light-mode .linkedin-modal-actions {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .linkedin-action-btn {
+  color: #555;
+}
+
+.light-mode .linkedin-action-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #111;
+}
+
+.light-mode .linkedin-comment-input {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.light-mode .linkedin-comment-input input {
+  background: #f5f5f5;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  color: #111;
+}
+
+.light-mode .linkedin-comment-input input::placeholder {
+  color: #999;
+}
+
+.light-mode .linkedin-comment-input button:disabled {
+  background: #e0e0e0;
+  color: #999;
+}
+
+.light-mode .linkedin-comment-body {
+  background: #f5f5f5;
+}
+
+.light-mode .linkedin-comment-author {
+  color: #111;
+}
+
+.light-mode .linkedin-comment-date {
+  color: #888;
+}
+
+.light-mode .linkedin-comment-body p {
+  color: #333;
+}
+
+.light-mode .linkedin-no-comments {
+  color: #999;
 }

@@ -51,9 +51,18 @@
               filter 0.6s ease;
 }
 
+.light-mode .about-portrait {
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) brightness(1.0);
+}
+
 .about-image-card:hover .about-portrait {
   transform: scale(1.04);
   filter: contrast(1.15) brightness(1);
+}
+
+.light-mode .about-image-card:hover .about-portrait {
+  filter: contrast(1.1) brightness(1.05);
 }
 
 /* ===========================
@@ -104,6 +113,10 @@
   margin-bottom: 2rem;
 }
 
+.light-mode .about-description-secondary {
+  color: #777777;
+}
+
 /* ===========================
    Info Grid — 2x2
    =========================== */
@@ -132,6 +145,17 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
+.light-mode .info-card {
+  background: transparent;
+  border: 1px solid var(--accent-cyan);
+}
+
+.light-mode .info-card:hover {
+  background: transparent;
+  border-color: #00e5ff;
+  box-shadow: 0 8px 20px rgba(0, 229, 255, 0.12);
+}
+
 .info-card-icon {
   color: var(--accent-cyan);
   opacity: 0.7;
@@ -155,6 +179,10 @@
   color: rgba(255, 255, 255, 0.3);
   font-family: var(--font-mono);
   margin-bottom: 0.15rem;
+}
+
+.light-mode .info-card-label {
+  color: #888888;
 }
 
 .info-card-value {

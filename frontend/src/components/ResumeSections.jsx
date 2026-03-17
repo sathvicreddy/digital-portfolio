@@ -325,9 +325,10 @@ const ResumeSections = () => {
           {/* Edify */}
           <div className="edu-timeline-item">
             <div className="edu-dot-wrapper">
-              <div className="edu-dot" />
+              <div className="edu-dot active" />
+              <div className="edu-dot-ring" />
             </div>
-            <div className="edu-card">
+            <div className="edu-card edu-card-active">
               <div className="edu-card-header">
                 <div>
                   <h4 className="edu-institution">Edify School</h4>
@@ -345,9 +346,10 @@ const ResumeSections = () => {
           {/* Sri Chaitanya */}
           <div className="edu-timeline-item">
             <div className="edu-dot-wrapper">
-              <div className="edu-dot" />
+              <div className="edu-dot active" />
+              <div className="edu-dot-ring" />
             </div>
-            <div className="edu-card">
+            <div className="edu-card edu-card-active">
               <div className="edu-card-header">
                 <div>
                   <h4 className="edu-institution">Sri Chaitanya School</h4>

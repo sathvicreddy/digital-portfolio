@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Rocket, Mail, Github, Code, Download, BookOpen, Award, FileBadge, Linkedin } from 'lucide-react';
+import { Cpu, Rocket, Mail, Github, Code, Download, BookOpen, Award, FileBadge, Linkedin, Sun, Moon } from 'lucide-react';
 import { API_BASE } from '../api';
 import './Navbar.css';
 
 const Navbar = () => {
   const [profile, setProfile] = useState(null);
+  const [isLightMode, setIsLightMode] = useState(false);
 
   useEffect(() => {
+    // Check saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      setIsLightMode(true);
+      document.documentElement.classList.add('light-mode');
+    }
+    
     fetch(`${API_BASE}/api/public/heros`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -20,6 +28,19 @@ const Navbar = () => {
       })
       .catch(err => console.error('Failed to fetch profile for navbar:', err));
   }, []);
+
+  const toggleTheme = () => {
+    if (isLightMode) {
+      document.documentElement.classList.remove('light-mode');
+      localStorage.setItem('theme', 'dark');
+      setIsLightMode(false);
+    } else {
+      document.documentElement.classList.add('light-mode');
+      localStorage.setItem('theme', 'light');
+      setIsLightMode(true);
+    }
+  };
+
   return (
     <motion.nav
       className="navbar"
@@ -63,6 +84,15 @@ const Navbar = () => {
       </div>
 
       <div className="nav-socials">
+        <button 
+          onClick={toggleTheme} 
+          className="social-link theme-toggle" 
+          title="Toggle Theme"
+          style={{ background: 'transparent', border: 'none', cursor: 'pointer', outline: 'none', padding: '0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+        >
+          {isLightMode ? <Moon className="social-icon" /> : <Sun className="social-icon" />}
+        </button>
+        <div style={{ width: '1px', height: '24px', backgroundColor: 'var(--border-color)', margin: '0 8px' }}></div>
         <a href={profile?.githubLink || "https://github.com/"} target="_blank" rel="noopener noreferrer" className="social-link">
           <Github className="social-icon" />
         </a>
