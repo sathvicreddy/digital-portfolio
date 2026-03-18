@@ -5,10 +5,18 @@ import { API_BASE } from '../api';
 // Helper to convert Google Drive share links into direct image links
 const getImageUrl = (url) => {
   if (!url) return null;
-  const driveRegex = /drive\.google\.com\/file\/d\/([^\/]+)/;
-  const match = url.match(driveRegex);
-  if (match && match[1]) {
-    return `https://drive.google.com/uc?id=${match[1]}`;
+  
+  // Handle /file/d/ID/ format
+  const driveRegex1 = /drive\.google\.com\/file\/d\/([^\/&\?]+)/;
+  // Handle ?id=ID format
+  const driveRegex2 = /drive\.google\.com\/.*[?&]id=([^\/&\?]+)/;
+  
+  const match1 = url.match(driveRegex1);
+  const match2 = url.match(driveRegex2);
+  const fileId = (match1 && match1[1]) || (match2 && match2[1]);
+  
+  if (fileId) {
+    return `https://drive.google.com/uc?id=${fileId}`;
   }
   return url;
 };
