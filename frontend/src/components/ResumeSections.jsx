@@ -12,7 +12,7 @@ const getImageUrl = (url) => {
   }
   return url;
 };
-import { Award, BookOpen, FileBadge, Code } from 'lucide-react';
+import { Award, BookOpen, FileBadge, Code, Link as LinkIcon } from 'lucide-react';
 import './ResumeSections.css';
 
 const ResumeSections = () => {
@@ -264,16 +264,28 @@ const ResumeSections = () => {
           </button>
           <div className="horizontal-scroll-track" ref={certScrollRef}>
             {certifications.length > 0 ? certifications.map((cert) => (
-              <div key={cert._id} className="card-item hover-magnetic cert-card scroll-card">
+              <a 
+                key={cert._id} 
+                href={cert.link || '#'} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className={`card-item hover-magnetic cert-card scroll-card ${cert.link ? 'clickable' : ''}`}
+                style={{ textDecoration: 'none', color: 'inherit', display: 'block' }}
+              >
                 {cert.image && (
                   <div className="cert-image-wrapper">
-                    <img src={cert.image} alt={`${cert.issuer} Certificate`} className="cert-image" />
+                    <img src={getImageUrl(cert.image)} alt={`${cert.issuer} Certificate`} className="cert-image" />
                   </div>
                 )}
                 <h4 className="cert-title mt-2">{cert.title}</h4>
                 <div className="desc-line" style={{ width: '50px', margin: '1rem 0' }}></div>
                 <p className="cert-issuer text-dim">{cert.issuer} {cert.date ? `| ${cert.date}` : ''}</p>
-              </div>
+                {cert.link && (
+                  <div className="cert-link-indicator">
+                    <LinkIcon size={14} /> <span>View Credential</span>
+                  </div>
+                )}
+              </a>
             )) : (
               <p className="text-dim">Loading certifications...</p>
             )}

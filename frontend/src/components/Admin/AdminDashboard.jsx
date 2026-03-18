@@ -363,7 +363,18 @@ const AdminDashboard = () => {
               </div>
             </div>
             <div className="form-group">
-              <label>Certificate Image</label>
+              <label>Certificate Image URL</label>
+              <input 
+                type="text" 
+                name="image" 
+                placeholder="Paste an image URL or Google Drive link here" 
+                value={formData.image || ''} 
+                onChange={handleInputChange} 
+                style={{ marginBottom: '0.8rem' }}
+              />
+              <div style={{ textAlign: 'center', fontSize: '0.8rem', color: '#8892b0', marginBottom: '0.8rem', fontWeight: 'bold' }}>
+                — OR UPLOAD LOCAL FILE —
+              </div>
               <div className="file-upload-wrapper">
                 <input 
                   type="file" 
@@ -397,7 +408,7 @@ const AdminDashboard = () => {
                 </label>
               </div>
               {formData.image && (
-                <img src={formData.image} alt="Certificate preview" style={{ marginTop: '0.75rem', maxHeight: '150px', borderRadius: '8px', border: '1px solid rgba(0,229,255,0.1)' }} />
+                <img src={getImageUrl(formData.image)} alt="Certificate preview" style={{ marginTop: '0.75rem', maxHeight: '150px', borderRadius: '8px', border: '1px solid rgba(0,229,255,0.1)' }} />
               )}
             </div>
           </>
