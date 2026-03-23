@@ -96,10 +96,39 @@
 }
 
 @media (max-width: 768px) {
+  .skills-section {
+    padding-top: 80px;
+    padding-bottom: 60px;
+  }
+
   .section-title {
     font-size: 2.5rem;
   }
+
   .skill-item {
     font-size: 3rem;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-section {
+    padding-top: 60px;
+    padding-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 1.9rem;
+  }
+
+  .skill-item {
+    font-size: 2.2rem;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
   }
 }

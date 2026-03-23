@@ -7,7 +7,8 @@ const ProjectSchema = new mongoose.Schema({
   tech: [{ type: String }],
   image: { type: String },
   liveLink: { type: String },
-  githubLink: { type: String }
+  githubLink: { type: String },
+  stats: [{ value: { type: String }, label: { type: String } }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('Project', ProjectSchema);

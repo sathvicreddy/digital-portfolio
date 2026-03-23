@@ -47,8 +47,8 @@
   object-position: top center;
   mix-blend-mode: screen;
   filter: contrast(1.1) brightness(0.95);
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
-              filter 0.6s ease;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.5s ease;
 }
 
 .light-mode .about-portrait {
@@ -134,7 +134,10 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 14px;
   padding: 1rem 1.2rem;
-  transition: all 0.35s ease;
+  transition: background 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   cursor: default;
 }
 
@@ -233,16 +236,45 @@
 }
 
 @media (max-width: 480px) {
+  .about-section {
+    padding: 50px 0;
+  }
+
+  .about-content {
+    padding: 0 1rem;
+    gap: 2rem;
+  }
+
   .about-heading {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-description,
+  .about-description-secondary {
+    font-size: 0.88rem;
+    line-height: 1.7;
   }
 
   .about-info-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    max-width: 100%;
+    gap: 0.6rem;
+  }
+
+  .info-card {
+    padding: 0.75rem 0.85rem;
+    border-radius: 10px;
+    gap: 0.6rem;
+  }
+
+  .info-card-value {
+    font-size: 0.82rem;
   }
 
   .about-portrait {
-    width: 220px;
-    height: 280px;
+    width: 200px;
+    height: 260px;
   }
 }
+

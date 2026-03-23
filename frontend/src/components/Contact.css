@@ -83,7 +83,8 @@
   font-size: 0.95rem;
   color: #fff;
   outline: none;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1);
   font-family: inherit;
 }
 
@@ -117,7 +118,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: all 0.3s ease;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.28s ease;
   margin-top: 0.5rem;
   box-shadow: 0 4px 20px rgba(0, 229, 255, 0.3);
 }
@@ -168,12 +171,14 @@
   gap: 0.5rem;
   font-size: 0.95rem;
   color: var(--text-main);
-  transition: color 0.2s ease;
+  transition: color 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
   text-decoration: none;
 }
 
 .contact-item:hover {
   color: var(--accent-cyan);
+  transform: translateX(4px);
 }
 
 .contact-info p {
@@ -224,22 +229,60 @@
 }
 
 @media (max-width: 900px) {
+  .contact-section {
+    padding-top: 100px;
+    padding-bottom: 40px;
+    margin-top: 60px;
+  }
+
   .contact-hero {
     flex-direction: column;
     gap: 2.5rem;
   }
+
   .contact-form-card {
     flex: none;
     width: 100%;
   }
+
   .contact-title {
     font-size: 3rem;
   }
+
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 3rem;
   }
 }
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding-top: 70px;
+    padding-bottom: 30px;
+    margin-top: 40px;
+  }
+
+  .contact-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .contact-title {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .contact-form-card {
+    padding: 1.6rem 1.4rem;
+    border-radius: 12px;
+  }
+
+  .contact-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
 
 /* ===========================
    Light Mode — Contact Form

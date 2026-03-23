@@ -36,9 +36,9 @@ const Hero = () => {
       <div className="hero-content">
         <motion.div
           className="hero-name-container"
-          initial={{ opacity: 0, x: -50 }}
+          initial={{ opacity: 0, x: -60 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
           <h1 className="hero-name" style={{ fontSize: '6rem' }}>
             {renderText(profile?.heroName, 'Satvic\nReddy')}
@@ -52,7 +52,7 @@ const Hero = () => {
             className="hero-titles"
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="title-group hover-magnetic">
               <h2 className="title-outline">{profile?.heroTitle1 ? profile.heroTitle1.toUpperCase() : 'ANDROID'}</h2>
@@ -67,9 +67,9 @@ const Hero = () => {
 
           <motion.div
             className="hero-description"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
             <p className="mono-text desc-text">
               {renderText(profile?.heroDescription, 'Crafting immersive digital experiences with\nprecision and performant code.')}
@@ -81,9 +81,9 @@ const Hero = () => {
 
       <motion.div
         className="scroll-indicator"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.4, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="mouse">
           <div className="wheel"></div>

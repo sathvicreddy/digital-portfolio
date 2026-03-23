@@ -95,6 +95,21 @@ const AdminDashboard = () => {
     if (activeTab === 'project' && submitData.tech && typeof submitData.tech === 'string') {
       submitData.tech = submitData.tech.split(',').map(s => s.trim());
     }
+    // Parse stats from flat stat1Value/stat1Label fields into [{value, label}] array
+    if (activeTab === 'project') {
+      const stats = [];
+      if (submitData.stat1Value || submitData.stat1Label) {
+        stats.push({ value: submitData.stat1Value || '', label: submitData.stat1Label || '' });
+      }
+      if (submitData.stat2Value || submitData.stat2Label) {
+        stats.push({ value: submitData.stat2Value || '', label: submitData.stat2Label || '' });
+      }
+      submitData.stats = stats;
+      delete submitData.stat1Value;
+      delete submitData.stat1Label;
+      delete submitData.stat2Value;
+      delete submitData.stat2Label;
+    }
 
     try {
       // route 'contact' all save to the 'hero' (Profile) model backend 
@@ -139,6 +154,13 @@ const AdminDashboard = () => {
     let populatedData = { ...item };
     if (activeTab === 'project' && Array.isArray(item.tech)) {
       populatedData.tech = item.tech.join(', ');
+    }
+    // Expand stats array into flat fields for editing
+    if (activeTab === 'project' && Array.isArray(item.stats)) {
+      populatedData.stat1Value = item.stats[0]?.value || '';
+      populatedData.stat1Label = item.stats[0]?.label || '';
+      populatedData.stat2Value = item.stats[1]?.value || '';
+      populatedData.stat2Label = item.stats[1]?.label || '';
     }
     setFormData(populatedData);
     setEditingId(item._id);
@@ -313,6 +335,27 @@ const AdminDashboard = () => {
               <div className="form-group">
                 <label>GitHub Link</label>
                 <input type="text" name="githubLink" placeholder="https://github.com/..." value={formData.githubLink || ''} onChange={handleInputChange} />
+              </div>
+            </div>
+            <h4 style={{marginTop:'1.2rem',marginBottom:'0.75rem',color:'#00e5ff',fontSize:'0.9rem'}}>Project Stats (Optional — shown as metrics on project card)</h4>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Stat 1 — Value</label>
+                <input type="text" name="stat1Value" placeholder="e.g. +150%" value={formData.stat1Value || ''} onChange={handleInputChange} />
+              </div>
+              <div className="form-group">
+                <label>Stat 1 — Label</label>
+                <input type="text" name="stat1Label" placeholder="e.g. TRAFFIC INCREASE" value={formData.stat1Label || ''} onChange={handleInputChange} />
+              </div>
+            </div>
+            <div className="form-row">
+              <div className="form-group">
+                <label>Stat 2 — Value</label>
+                <input type="text" name="stat2Value" placeholder="e.g. 300+/mo" value={formData.stat2Value || ''} onChange={handleInputChange} />
+              </div>
+              <div className="form-group">
+                <label>Stat 2 — Label</label>
+                <input type="text" name="stat2Label" placeholder="e.g. ONLINE ORDERS" value={formData.stat2Label || ''} onChange={handleInputChange} />
               </div>
             </div>
           </>

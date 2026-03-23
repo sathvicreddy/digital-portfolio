@@ -1,14 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ExternalLink, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import { API_BASE } from '../api';
 import './Projects.css';
 
 const Projects = () => {
-  const scrollRef = useRef(null);
   const [projectsData, setProjectsData] = useState([]);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const isAnimating = useRef(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -25,117 +23,184 @@ const Projects = () => {
     fetchProjects();
   }, []);
 
-  const checkScrollability = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    setCanScrollLeft(el.scrollLeft > 10);
-    setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth - 10);
+  const navigate = (dir) => {
+    if (isAnimating.current) return;
+    const next = activeIndex + dir;
+    if (next < 0 || next >= projectsData.length) return;
+    isAnimating.current = true;
+    setActiveIndex(next);
+    setTimeout(() => { isAnimating.current = false; }, 550);
   };
 
+  // Attach wheel listener only to the card viewport, not the whole section
+  const viewportRef = useRef(null);
   useEffect(() => {
-    const el = scrollRef.current;
+    const el = viewportRef.current;
     if (!el) return;
-    checkScrollability();
-    el.addEventListener('scroll', checkScrollability);
-    window.addEventListener('resize', checkScrollability);
-    return () => {
-      el.removeEventListener('scroll', checkScrollability);
-      window.removeEventListener('resize', checkScrollability);
+    const onWheel = (e) => {
+      if (Math.abs(e.deltaY) < 30) return;
+      const goingDown = e.deltaY > 0;
+      if (goingDown && activeIndex === projectsData.length - 1) return;
+      if (!goingDown && activeIndex === 0) return;
+      e.preventDefault();
+      navigate(goingDown ? 1 : -1);
     };
-  }, [projectsData]);
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [activeIndex, projectsData.length]);
 
-  const scroll = (direction) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const cardWidth = 400;
-    el.scrollBy({ left: direction === 'left' ? -cardWidth : cardWidth, behavior: 'smooth' });
-  };
+  // Touch swipe → navigate on mobile
+  useEffect(() => {
+    let touchStartX = 0;
+    const onTouchStart = (e) => { touchStartX = e.touches[0].clientX; };
+    const onTouchEnd = (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) < 40) return; // ignore tiny taps
+      navigate(diff > 0 ? 1 : -1);
+    };
+    const section = document.getElementById('projects');
+    if (!section) return;
+    section.addEventListener('touchstart', onTouchStart, { passive: true });
+    section.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      section.removeEventListener('touchstart', onTouchStart);
+      section.removeEventListener('touchend', onTouchEnd);
+    };
+  }, [activeIndex, projectsData.length]);
+
+
+  const total = projectsData.length;
+
+  if (total === 0) return null;
 
   return (
     <section id="projects" className="projects-section">
-      <motion.div 
-        className="projects-header-wrapper"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.5 }}
-      >
-        <div className="section-header-left">
-          <span className="mono-text">WORK</span>
-          <h2 className="section-title">PROJECTS</h2>
+      {/* Section label */}
+      <div className="proj-section-label">
+        <span className="proj-label-dot" />
+        <span className="mono-text">SELECTED WORK</span>
+      </div>
+
+      {/* Header row: title + counter */}
+      <div className="proj-header-row">
+        <h2 className="proj-heading">Projects</h2>
+        <div className="proj-counter">
+          <Eye size={14} />
+          <span className="proj-counter-num">
+            {String(activeIndex + 1).padStart(2, '0')}
+            <span className="proj-counter-total"> / {String(total).padStart(2, '0')}</span>
+          </span>
         </div>
-        <div className="projects-nav-arrows">
-          <button
-            className={`arrow-btn ${!canScrollLeft ? 'disabled' : ''}`}
-            onClick={() => scroll('left')}
-            disabled={!canScrollLeft}
-            aria-label="Previous project"
+      </div>
+
+      {/* Peek carousel stage */}
+      <div className="proj-stage">
+        {/* Arrow left */}
+        <button
+          className={`proj-arrow proj-arrow-left ${activeIndex === 0 ? 'hidden' : ''}`}
+          onClick={() => navigate(-1)}
+          aria-label="Previous"
+        >
+          <ChevronLeft size={20} />
+        </button>
+
+        {/* Sliding track — wheel listener scoped to this element only */}
+        <div className="proj-track-viewport" ref={viewportRef}>
+          <div
+            className="proj-track"
+            style={{ transform: `translateX(calc(${activeIndex} * -85%))` }}
           >
-            <ChevronLeft size={22} />
-          </button>
-          <button
-            className={`arrow-btn ${!canScrollRight ? 'disabled' : ''}`}
-            onClick={() => scroll('right')}
-            disabled={!canScrollRight}
-            aria-label="Next project"
-          >
-            <ChevronRight size={22} />
-          </button>
-        </div>
-      </motion.div>
+            {projectsData.map((project, index) => (
+              <div
+                key={project._id || index}
+                className={`proj-card ${index === activeIndex ? 'active' : ''}`}
+                onClick={() => {
+                  if (index !== activeIndex) {
+                    navigate(index > activeIndex ? 1 : -1);
+                  }
+                }}
+              >
+                {/* Left text panel */}
+                <div className="proj-card-left">
+                  <p className="proj-cat mono-text">{project.category || 'PROJECT'}</p>
+                  <h3 className="proj-card-title">{project.title}</h3>
+                  <p className="proj-card-desc">{project.description}</p>
 
-      <div className="projects-carousel-wrapper" ref={scrollRef}>
-        <div className="projects-grid">
-          {projectsData.map((project, index) => (
-            <motion.div
-              key={project._id || index}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="project-card-wrapper"
-            >
-              <div className="project-card">
-                <div
-                  className="project-bg"
-                  style={{ backgroundImage: `url(${project.image || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1000&auto=format&fit=crop'})` }}
-                ></div>
-                <div className="project-overlay"></div>
-
-                <div className="project-content">
-                  <div className="project-top">
-                    <div className="project-id">{index < 9 ? `0${index + 1}` : index + 1}</div>
-                  </div>
-
-                  <div className="project-bottom">
-                    <p className="project-category mono-text">{project.category || 'PROJECT'}</p>
-                    <h3 className="project-title">{project.title}</h3>
-                    <p className="project-description text-dim">{project.description}</p>
-
-                    <div className="project-tags">
-                      {project.tech && project.tech.map((tag, i) => (
-                        <span key={i} className="tag">{tag}</span>
+                  {/* Stats */}
+                  {project.stats && project.stats.length > 0 && (
+                    <div className="proj-stats">
+                      {project.stats.map((s, i) => (
+                        <div key={i} className="proj-stat">
+                          <span className="proj-stat-val">{s.value}</span>
+                          <span className="proj-stat-lbl mono-text">{s.label}</span>
+                        </div>
                       ))}
                     </div>
+                  )}
 
-                    <div className="project-links">
-                      {project.githubLink && (
-                        <a href={project.githubLink} className="project-link" target="_blank" rel="noreferrer">
-                          SOURCE <ExternalLink size={14} />
-                        </a>
-                      )}
-                      {project.liveLink && (
-                        <a href={project.liveLink} className="project-link primary" target="_blank" rel="noreferrer">
-                          LIVE DEMO <ExternalLink size={14} />
-                        </a>
-                      )}
+                  {/* Tags */}
+                  {project.tech && project.tech.length > 0 && (
+                    <div className="proj-tags">
+                      {project.tech.map((t, i) => (
+                        <span key={i} className="proj-tag">{t}</span>
+                      ))}
                     </div>
+                  )}
+
+                  {/* Links */}
+                  <div className="proj-links">
+                    {project.liveLink && (
+                      <a href={project.liveLink} className="proj-btn-red" target="_blank" rel="noreferrer"
+                        onClick={e => e.stopPropagation()}>
+                        VIEW PROJECT <ExternalLink size={13} />
+                      </a>
+                    )}
+                    {project.githubLink && (
+                      <a href={project.githubLink} className="proj-btn-ghost" target="_blank" rel="noreferrer"
+                        onClick={e => e.stopPropagation()}>
+                        SOURCE <ExternalLink size={12} />
+                      </a>
+                    )}
                   </div>
                 </div>
+
+                {/* Right image panel */}
+                <div className="proj-card-image">
+                  <img
+                    src={project.image || 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?q=80&w=1400&auto=format&fit=crop'}
+                    alt={project.title}
+                  />
+                </div>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </div>
         </div>
+
+        {/* Arrow right */}
+        <button
+          className={`proj-arrow proj-arrow-right ${activeIndex === total - 1 ? 'hidden' : ''}`}
+          onClick={() => navigate(1)}
+          aria-label="Next"
+        >
+          <ChevronRight size={20} />
+        </button>
+      </div>
+
+      {/* Dot navigation */}
+      <div className="proj-dots">
+        {projectsData.map((_, i) => (
+          <button
+            key={i}
+            className={`proj-dot-btn ${i === activeIndex ? 'active' : ''}`}
+            onClick={() => {
+              if (i === activeIndex || isAnimating.current) return;
+              isAnimating.current = true;
+              setActiveIndex(i);
+              setTimeout(() => { isAnimating.current = false; }, 550);
+            }}
+            aria-label={`Project ${i + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

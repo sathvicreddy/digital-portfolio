@@ -35,12 +35,12 @@ const AboutMe = () => {
     <section id="about" className="about-section section-container">
       <div className="about-content">
         {/* Left: Portrait Card */}
-        <motion.div 
+        <motion.div
           className="about-image-card"
-          initial={{ opacity: 0, x: -40 }}
+          initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="about-image-inner">
             <img 
@@ -52,12 +52,12 @@ const AboutMe = () => {
         </motion.div>
 
         {/* Right: Info */}
-        <motion.div 
+        <motion.div
           className="about-info"
-          initial={{ opacity: 0, x: 40 }}
+          initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.85, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
         >
           <span className="about-label">ABOUT ME</span>
           <h2 className="about-heading">

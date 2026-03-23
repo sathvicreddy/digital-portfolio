@@ -159,29 +159,81 @@
   100% { transform: translateY(10px); opacity: 0; }
 }
 
+/* ─── Tablet ──────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .hero-content {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 2rem;
   }
-  
+
   .hero-titles {
     align-items: center;
     text-align: center;
   }
-  
+
   .hero-name {
     font-size: 5rem;
   }
-  
+
   .title-outline, .title-filled {
     font-size: 3rem;
   }
-  
+
   .hero-description {
     grid-column: 1;
     margin-top: 0;
     justify-self: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .desc-line {
+    background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
   }
 }
+
+/* ─── Phone ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero-name {
+    font-size: 3.2rem;
+    line-height: 1;
+  }
+
+  .title-outline, .title-filled {
+    font-size: 1.9rem;
+  }
+
+  .ampersand {
+    font-size: 1.4rem;
+    margin-right: 0.5rem;
+  }
+
+  .hero-image-container {
+    height: 55vh;
+  }
+
+  .hero-right-content {
+    align-items: center;
+  }
+
+  .hero-titles {
+    gap: 0.6rem;
+  }
+
+  .scroll-indicator {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero-name {
+    font-size: 2.6rem;
+  }
+
+  .title-outline, .title-filled {
+    font-size: 1.6rem;
+  }
+}
+
