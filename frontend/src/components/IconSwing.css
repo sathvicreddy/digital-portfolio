@@ -1,0 +1,95 @@
+.icon-swing-container {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  overflow: hidden; /* Hide horizontal overflow */
+  padding: 140px 0 60px 0; /* Space for the upward arc (peak is top) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  margin-top: -60px; /* pull closer to the marquee */
+}
+
+.icon-swing-track {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem; /* space between bubbles */
+  min-width: max-content;
+}
+
+.swing-icon-bubble {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  color: var(--border-color); /* Faded by default */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  animation: float-wave 5s ease-in-out infinite;
+}
+
+@keyframes float-wave {
+  0%, 100% { transform: translateY(30px); }
+  50% { transform: translateY(-70px); }
+}
+
+.swing-icon-bubble svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.swing-icon-bubble:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  animation-play-state: paused;
+}
+
+.swing-icon-bubble:hover svg {
+  transform: scale(1.2);
+  color: var(--text-main);
+}
+
+@media (max-width: 1024px) {
+  .icon-swing-track {
+    gap: 1.5rem;
+  }
+  .swing-icon-bubble {
+    width: 60px;
+    height: 60px;
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .icon-swing-container {
+    padding: 100px 0 40px 0;
+  }
+  .icon-swing-track {
+    gap: 1.2rem;
+  }
+  .swing-icon-bubble {
+    width: 50px;
+    height: 50px;
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .icon-swing-track {
+    gap: 0.8rem;
+  }
+  .swing-icon-bubble {
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
+  }
+}

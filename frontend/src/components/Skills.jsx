@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { API_BASE } from '../api';
 import './Skills.css';
+import IconSwing from './IconSwing';
 
 // react-icons imports
 import {
@@ -158,6 +159,7 @@ const Skills = () => {
         <div className="fade-overlay left"></div>
         <div className="fade-overlay right"></div>
       </motion.div>
+      <IconSwing />
     </section>
   );
 };
