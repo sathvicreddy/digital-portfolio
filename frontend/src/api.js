@@ -1,3 +1,5 @@
 // Central API configuration
-// Change this when deploying to production
-export const API_BASE = 'https://digital-portfolio-xsmf.onrender.com';
+// Automatically uses localhost in development, production URL when deployed
+export const API_BASE = import.meta.env.DEV
+  ? 'http://localhost:5000'
+  : 'https://digital-portfolio-xsmf.onrender.com';

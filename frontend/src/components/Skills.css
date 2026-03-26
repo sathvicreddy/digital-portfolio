@@ -54,10 +54,29 @@
   color: var(--border-color); /* Dimmer by default */
   transition: color 0.3s ease;
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
 }
 
 .skill-item:hover {
   color: var(--text-main);
+}
+
+.skill-icon {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75em;
+  opacity: 0.85;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.skill-item:hover .skill-icon {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.marquee-row:hover .marquee-content {
   animation-play-state: paused;
 }
 

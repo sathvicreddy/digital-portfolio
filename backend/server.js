@@ -3,14 +3,29 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const path = require('path');
+const fs = require('fs');
 
 // Load env vars
 dotenv.config();
 
 const app = express();
 
+// Auto-create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://digital-portfolio-xsmf.onrender.com',
+    /\.onrender\.com$/
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes
