@@ -22,6 +22,10 @@ app.use(cors({
     'http://localhost:5173',
     'http://localhost:3000',
     'https://digital-portfolio-xsmf.onrender.com',
+    'http://satvicreddy.in',
+    'https://satvicreddy.in',
+    'http://www.satvicreddy.in',
+    'https://www.satvicreddy.in',
     /\.onrender\.com$/
   ],
   credentials: true
